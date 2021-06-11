@@ -1,0 +1,75 @@
+type Query {
+    "Lista das temporadas de Fórmula 1. De 1950 até o ano atual."
+    seasonsList: [Season!]!
+    "Informações das corridas selecionadas por ano. De 1950 até o ano atual."
+    racesByYear(year: String!): [Race!]!
+    """
+    Informações das corridas selecionadas por ano e por número da corrida. 
+    De 1950 até o ano atual.
+    """
+    raceSelect(year: String!, round: Int!): Race
+    """
+    Lista de pilotos da fórmula 1  de 1950 até o ano atual.
+    É possível obter todos os resultados sem utilizar parametros ou 
+    obter paginado com os parametros limitando os resultados.
+    """
+    historyDrivers(pageElements: Int, page: Int): [Driver!]!
+    """
+    Informações dos pilotos selecionados por ano. De 1950 até o ano atual.
+    """
+    driversYear(year: String!): [Driver!]!
+    """
+    Informações dos pilotos selecionados por ano e por número da corrida.
+    De 1950 até o ano atual.
+    """
+    driversYearAndRound(year: String!, round: Int!): [Driver!]!
+    "Informações de um único piloto, passando como parametro seu id."
+    driverSelect(id: String!): Driver
+}
+
+"Estrutura das informções de uma temporada de Fórmula 1."
+type Season {
+    "Ano da temporada."
+    year: String!
+    "URL da Wikipedia sobre a temporada."
+    url: String!
+    "URL da Wikipedia sobre a temporada adaptado para dispositivos móveis."
+    urlMobile: String!
+}
+
+type Race {
+    season: String!
+    round: String!
+    url: String!
+    urlMobile: String!
+    name: String!
+    circuit: Circuit!
+    date: String!
+    time: String
+}
+
+type Circuit {
+    id: String!
+    url: String!
+    urlMobile: String!
+    name: String!
+    location: Location!
+}
+
+type Location {
+    lat: String!
+    lng: String!
+    locality: String!
+    country: String!
+}
+
+type Driver {
+    id: String!
+    url: String!
+    urlMobile: String!
+    name: String!
+    dateOfBirth: String!
+    nationality: String!
+    code: String
+    permanentNumber: String
+}
