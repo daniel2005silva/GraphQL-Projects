@@ -25,6 +25,12 @@ type Query {
     driversYearAndRound(year: String!, round: Int!): [Driver!]!
     "Informações de um único piloto, passando como parametro seu id."
     driverSelect(id: String!): Driver
+    "Classificação final de uma temporada por um ano"
+    seasonPilotsRanking(year: String!): [DriverStanding!]!
+    "Circuitos históricos"
+    historyCircuits(pageElements: Int, page: Int): [Circuit!]!
+    "Circuito selecionado"
+    circuitSelect(id: String!): Circuit
 }
 
 "Estrutura das informções de uma temporada de Fórmula 1."
@@ -72,4 +78,21 @@ type Driver {
     nationality: String!
     code: String
     permanentNumber: String
+}
+
+type DriverStanding {
+    position: String!
+    positionText: String!
+    points: String!
+    wins: String!
+    driver: Driver!
+    constructors: [Constructor!]!
+}
+
+type Constructor {
+    id: String!
+    url: String!
+    urlMobile: String!
+    name: String!
+    nationality: String!
 }
